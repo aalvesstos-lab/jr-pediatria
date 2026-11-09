@@ -58,7 +58,7 @@ export const doctor: DoctorConfig = {
 export function whatsappLink(source: string): string {
   // Botões "Agendar consulta" levam a mensagem de agendamento; os demais, a de informações.
   const agendar = ['hero', 'header', 'header-mobile', 'cta-final'].includes(source)
-  const text = encodeURIComponent(agendar ? 'Olá Dra Jade, gostaria de agendar uma consulta' : 'Olá, gostaria de informações sobre...')
+  const text = encodeURIComponent(agendar ? 'Olá Dra Jade, gostaria de agendar uma consulta' : 'Olá, gostaria de informações sobre')
   const number = (doctor.whatsapp ?? '').replace(/\D/g, '')
   const base = number ? `https://wa.me/${number}` : 'https://wa.me/'
   // utm_source identifica apenas a seção do botão; nenhum dado pessoal ou de saúde.
