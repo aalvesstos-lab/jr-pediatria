@@ -54,7 +54,7 @@ export function FAQSection() {
                   </button>
                 </h3>
                 <div id={`faq-panel-${i}`} role="region" aria-labelledby={`faq-btn-${i}`} className={cn('grid transition-[grid-template-rows] duration-300 ease-out', isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]')}>
-                  <div className="overflow-hidden"><p className="pb-6 text-base leading-relaxed text-forest/80">{f.a}</p></div>
+                  <div className="overflow-hidden"><div className="space-y-2 pb-6 text-base leading-relaxed text-forest/80">{f.a.split("\n").map((t, k) => <p key={k}>{t}</p>)}</div></div>
                 </div>
               </div>
             )
