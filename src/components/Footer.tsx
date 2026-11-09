@@ -38,12 +38,7 @@ export function Footer({ embedded }: { embedded?: boolean } = {}) {
         </ul>
       </div>
       <div className="mt-2 border-t border-forest/10 bg-bege px-5 py-2 sm:mt-3 sm:py-3 sm:px-8">
-        <p className="mx-auto max-w-5xl text-[10px] leading-snug text-forest/65 sm:text-xs">
-          Este site tem caráter informativo e não substitui consulta, avaliação ou orientação médica individualizada.
-          {doctor.previewMode && doctor.photos.reference && ' Fotos de referência de banco de imagens (Magnific), com licença e crédito a confirmar antes da publicação.'}
-          {doctor.previewMode && ' Dados de identificação profissional (CRM/UF, RQE) e demais informações obrigatórias devem ser revisados antes da publicação.'}
-        </p>
-        <p className="mt-1 text-[10px] text-forest/55 sm:text-xs">© {new Date().getFullYear()} {doctor.name}</p>
+        <p className="mx-auto max-w-5xl text-[10px] text-forest/55 sm:text-xs">© {new Date().getFullYear()} {doctor.name}</p>
       </div>
     </footer>
   )
