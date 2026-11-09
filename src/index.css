@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 38 41% 96%;
+    --foreground: 140 15% 24%;
+    --card: 38 41% 98%;
+    --card-foreground: 140 15% 24%;
+    --popover: 38 41% 98%;
+    --popover-foreground: 140 15% 24%;
+    --primary: 140 15% 24%;
+    --primary-foreground: 38 41% 97%;
+    --secondary: 38 34% 89%;
+    --secondary-foreground: 140 15% 24%;
+    --muted: 38 34% 89%;
+    --muted-foreground: 140 8% 38%;
+    --accent: 105 14% 68%;
+    --accent-foreground: 140 15% 24%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 30 22% 78%;
+    --input: 30 22% 78%;
+    --ring: 140 15% 24%;
+    --radius: 0.5rem;
+  }
+  html { scroll-behavior: smooth; scroll-padding-top: 0; overflow-x: clip; }
+  body { @apply bg-bege-paper text-forest font-sans antialiased; overflow-x: hidden; }
+  h1, h2, h3 { @apply font-display; }
+  :focus-visible { outline: 2px solid #35483D; outline-offset: 3px; border-radius: 4px; }
+  .on-dark :focus-visible { outline-color: #FBF8F2; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
+}
+
+@layer components {
+  .snap-section { min-height: 100svh; min-height: 100dvh; display: flex; flex-direction: column; justify-content: center; scroll-snap-align: start; padding-top: clamp(5.25rem, 12svh, 7.5rem); padding-bottom: clamp(1.25rem, 4.5svh, 3.5rem); }
+  .t-hero { font-size: clamp(2.35rem, min(11vw, 8.2svh), 4.6rem); }
+  .t-h2 { font-size: clamp(1.85rem, min(8.4vw, 6.6svh), 3.75rem); }
+  @media (min-width: 1024px) { .t-hero { font-size: clamp(2.6rem, min(5vw, 8.2svh), 4.6rem); } }
+  .snap-section > * { width: 100%; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-snap-type: y proximity; }
+}
