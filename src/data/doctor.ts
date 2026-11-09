@@ -36,7 +36,7 @@ export const doctor: DoctorConfig = {
   crm: '290930',
   state: 'SP',
   rqe: '154914',
-  whatsapp: undefined,
+  whatsapp: '5512991843003',
   whatsappMessage:
     'Olá! Gostaria de receber informações sobre o atendimento da Dra. Jade Rodrigues e agendar uma consulta.',
   instagram: 'pedevidencia',
