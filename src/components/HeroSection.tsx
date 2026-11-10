@@ -96,14 +96,14 @@ function Dra3D({ reduce }: { reduce: boolean }) {
       className="flex min-h-0 w-full flex-1 justify-center [perspective:900px]"
     >
       <div className="relative h-full aspect-[4/5] max-w-full">
-        <div className="absolute inset-x-0 bottom-0 flex h-[104%] justify-center">
+        <div className="absolute inset-x-0 bottom-12 flex h-[calc(104%-3rem)] justify-center sm:bottom-16 sm:h-[calc(104%-4rem)]">
           <motion.img
             src={photoDraCut}
             alt="Retrato da Dra. Jade Rodrigues, pediatra"
             fetchPriority="high"
             draggable={false}
             style={reduce ? undefined : { rotateY: rotY, rotateX: rotX, x: shift, scale, transformOrigin: '50% 80%' }}
-            className="h-full w-auto max-w-none select-none object-contain [mask-image:linear-gradient(to_bottom,#000_82%,transparent_97%)]"
+            className="h-full w-auto max-w-none select-none object-contain"
           />
         </div>
       </div>
