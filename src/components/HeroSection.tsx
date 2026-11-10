@@ -57,7 +57,7 @@ export function HeroSection() {
 
           <div className="relative flex min-h-0 flex-col items-center lg:col-span-5">
             <Dra3D reduce={!!reduce} />
-            <div className="relative z-10 -mt-7 w-fit max-w-full shrink-0 rounded-2xl bg-bege-paper/85 px-4 py-2 text-center shadow-sm backdrop-blur-sm sm:px-5 sm:py-2.5">
+            <div className="relative z-10 -mt-7 w-full max-w-lg shrink-0 lg:max-w-none lg:min-w-[55svh] rounded-2xl bg-bege-paper/85 px-4 py-2 text-center shadow-sm backdrop-blur-sm sm:px-5 sm:py-2.5">
               <p className="font-display text-lg font-semibold leading-tight text-forest sm:text-2xl">Dra. Jade Rodrigues - Pediatra</p>
               <p className="mt-0.5 text-[9.5px] font-semibold uppercase tracking-[0.1em] text-sage-deep sm:mt-1 sm:text-xs sm:tracking-[0.14em] lg:whitespace-nowrap">Atendimento Particular em São José dos Campos</p>
             </div>
@@ -95,15 +95,15 @@ function Dra3D({ reduce }: { reduce: boolean }) {
       transition={{ duration: 1.1, ease, delay: 0.45 }}
       className="flex min-h-0 w-full flex-1 justify-center [perspective:900px]"
     >
-      <div className="relative h-full aspect-[4/5] max-w-full">
-        <div className="absolute inset-x-0 bottom-0 flex h-[104%] justify-center">
+      <div className="relative h-full aspect-[4/5] max-w-full" style={{ clipPath: 'inset(-14% -30% 0 -30%)' }}>
+        <div className="absolute inset-x-0 bottom-[-6%] flex h-[110%] justify-center">
           <motion.img
             src={photoDraCut}
             alt="Retrato da Dra. Jade Rodrigues, pediatra"
             fetchPriority="high"
             draggable={false}
             style={reduce ? undefined : { rotateY: rotY, rotateX: rotX, x: shift, scale, transformOrigin: '50% 80%' }}
-            className="h-full w-auto max-w-none select-none object-contain [mask-image:linear-gradient(to_bottom,#000_96%,transparent_100%)]"
+            className="h-full w-auto max-w-none select-none object-contain"
           />
         </div>
       </div>
