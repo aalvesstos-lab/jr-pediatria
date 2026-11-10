@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform, useAnimationFrame } from 'motion/react'
 import { ArrowDown } from 'lucide-react'
 import { doctor } from '@/data/doctor'
@@ -12,6 +12,29 @@ const lines = ['Cuidar da infância', 'é estar presente', 'em cada descoberta.'
 export function HeroSection() {
   const reduce = useReducedMotion()
   const ref = useRef<HTMLElement>(null)
+  const colRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    // Posiciona a Dra. à esquerda do laptop do fundo, de acordo com o tamanho da tela
+    const A = 2.09375, LAPTOP_LEFT = 0.826
+    const fit = () => {
+      const sec = ref.current, col = colRef.current
+      if (!sec || !col) return
+      const W = sec.clientWidth, H = sec.clientHeight
+      col.style.transform = 'none'
+      if (W < 1024) return
+      const img = col.querySelector('img')
+      if (!img) return
+      const Wi = Math.max(W, H * A)
+      const lapLeft = (W - Wi) + LAPTOP_LEFT * Wi
+      const right = img.getBoundingClientRect().right
+      const shift = Math.max(Math.min(0, lapLeft - 20 - right), -(W < 1200 ? 0.05 : 0.14) * W)
+      col.style.transform = `translateX(${shift}px)`
+    }
+    fit()
+    const t = window.setTimeout(fit, 4200)
+    window.addEventListener('resize', fit)
+    return () => { window.clearTimeout(t); window.removeEventListener('resize', fit) }
+  }, [])
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
     const bgY = useTransform(scrollYProgress, [0, 1], [0, -50])
   const textY = useTransform(scrollYProgress, [0, 1], [0, 30])
@@ -20,7 +43,7 @@ export function HeroSection() {
   return (
     <section ref={ref} id="inicio" className="snap-section relative h-dvh max-h-dvh overflow-hidden bg-bege">
       <div aria-hidden="true" className="absolute inset-0">
-        <img src={photoOffice} alt="" className="h-full w-full object-cover object-center" />
+        <img src={photoOffice} alt="" className="h-full w-full object-cover object-center lg:object-right" />
         <div className="absolute inset-0 bg-gradient-to-b from-bege/85 via-bege/65 to-bege/80 lg:bg-gradient-to-r lg:from-bege/95 lg:via-bege/60 lg:to-bege/10" />
       </div>
       <motion.div aria-hidden="true" style={reduce ? undefined : { y: bgY }} className="absolute inset-0" initial={reduce ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.2 }}>
@@ -55,7 +78,7 @@ export function HeroSection() {
             </motion.div>
           </motion.div>
 
-          <div className="relative flex min-h-0 flex-col items-center lg:col-span-5">
+          <div ref={colRef} className="relative flex min-h-0 flex-col items-center lg:col-span-5">
             <Dra3D reduce={!!reduce} />
             <div className="relative z-10 -mt-16 w-fit sm:-mt-24 max-w-full shrink-0 lg:min-w-[58svh] rounded-2xl bg-bege-paper/85 px-4 py-2 text-center shadow-sm backdrop-blur-sm sm:px-5 sm:py-2.5">
               <p className="font-display text-lg font-semibold leading-tight text-forest sm:text-2xl">Dra. Jade Rodrigues - Pediatra</p>
