@@ -57,7 +57,7 @@ export function HeroSection() {
 
           <div className="relative flex min-h-0 flex-col items-center lg:col-span-5">
             <Dra3D reduce={!!reduce} />
-            <div className="relative z-10 -mt-9 w-fit max-w-full shrink-0 rounded-2xl bg-bege-paper/85 px-4 py-2 text-center shadow-sm backdrop-blur-sm sm:px-5 sm:py-2.5">
+            <div className="relative z-10 -mt-16 w-fit sm:-mt-24 max-w-full shrink-0 lg:min-w-[58svh] rounded-2xl bg-bege-paper/85 px-4 py-2 text-center shadow-sm backdrop-blur-sm sm:px-5 sm:py-2.5">
               <p className="font-display text-lg font-semibold leading-tight text-forest sm:text-2xl">Dra. Jade Rodrigues - Pediatra</p>
               <p className="mt-0.5 text-[9.5px] font-semibold uppercase tracking-[0.1em] text-sage-deep sm:mt-1 sm:text-xs sm:tracking-[0.14em] lg:whitespace-nowrap">Atendimento Particular em São José dos Campos</p>
             </div>
