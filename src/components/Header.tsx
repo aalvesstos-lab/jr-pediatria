@@ -69,9 +69,14 @@ export function Header() {
             Agendar consulta
           </a>
         </nav>
-        <button type="button" className="flex h-11 w-11 items-center justify-center rounded-full text-forest lg:hidden" aria-expanded={open} aria-controls="menu-mobile" aria-label={open ? 'Fechar menu' : 'Abrir menu'} onClick={() => setOpen(!open)}>
+        <div className="flex items-center gap-1 lg:hidden">
+        <a href={whatsappLink('header')} target="_blank" rel="noopener noreferrer" onClick={() => track('cta_whatsapp', { source: 'header' })} className="whitespace-nowrap rounded-full bg-forest px-3.5 py-2 text-xs font-semibold text-bege-paper transition-colors hover:bg-[#2a3a31] sm:px-5 sm:py-2.5 sm:text-sm">
+          Agendar consulta
+        </a>
+        <button type="button" className="flex h-11 w-11 items-center justify-center rounded-full text-forest" aria-expanded={open} aria-controls="menu-mobile" aria-label={open ? 'Fechar menu' : 'Abrir menu'} onClick={() => setOpen(!open)}>
           {open ? <X size={22} /> : <Menu size={22} />}
         </button>
+        </div>
       </div>
       <nav id="menu-mobile" aria-label="Principal (mobile)" className={cn('fixed inset-0 -z-10 h-dvh flex-col overflow-y-auto bg-bege-paper px-5 pb-8 pt-[5.5rem] lg:hidden', open ? 'flex' : 'hidden')}>
         <ul className="flex flex-col">

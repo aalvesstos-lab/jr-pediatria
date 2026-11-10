@@ -69,7 +69,7 @@ export function HeroSection() {
             <motion.p {...rise(4, 0.5)} className="mt-2 max-w-lg text-[13px] leading-snug text-forest/80 sm:mt-4 sm:text-lg sm:leading-relaxed lg:mt-6">
               Consultas individualizadas e sem pressa. Acompanhamento longitudinal, desde o pré-natal até a adolescência.
             </motion.p>
-            <motion.div {...rise(6, 0.6)} className="mt-3 flex flex-row items-center gap-3 sm:mt-5 lg:mt-8">
+            <motion.div {...rise(6, 0.6)} className="mt-3 hidden flex-row items-center gap-3 sm:mt-5 lg:mt-8 lg:flex">
               <WhatsAppCTA source="hero" event="cta_principal">Agendar consulta</WhatsAppCTA>
               <a href="#sobre" className="group hidden min-h-12 items-center justify-center gap-2 px-4 text-sm font-semibold text-forest sm:inline-flex">
                 Conheça a Dra. Jade
