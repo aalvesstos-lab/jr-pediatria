@@ -1,11 +1,11 @@
 import { useRef } from 'react'
-import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
+import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform, useAnimationFrame } from 'motion/react'
 import { ArrowDown } from 'lucide-react'
 import { doctor } from '@/data/doctor'
 import { dur, ease, dist, stagger } from '@/lib/motion'
-import { photoDra } from '@/assets/dra'
+import { photoDraCut } from '@/assets/dra3d'
 import { photoOffice } from '@/assets/office'
-import { Blob, PhotoFrame, WhatsAppCTA } from './shared'
+import { Blob, WhatsAppCTA } from './shared'
 
 const lines = ['Cuidar da infância', 'é estar presente', 'em cada descoberta.']
 
@@ -56,14 +56,7 @@ export function HeroSection() {
           </motion.div>
 
           <div className="relative flex min-h-0 flex-col items-center lg:col-span-5">
-            <motion.div
-              initial={reduce ? false : { clipPath: 'inset(0 0 100% 0)', scale: 1.04 }}
-              animate={{ clipPath: 'inset(0 0 0% 0)', scale: 1 }}
-              transition={{ duration: 1.3, ease, delay: 0.5 }}
-              className="flex min-h-0 w-full flex-1 justify-center"
-            >
-              <PhotoFrame real src={photoDra} position="50% 18%" alt="Retrato da Dra. Jade Rodrigues, pediatra" eager className="aspect-[650/724] h-full max-h-[46rem] max-w-full rounded-3xl rounded-tr-[4rem] shadow-2xl sm:rounded-tr-[5rem] lg:rounded-tr-[8rem]" />
-            </motion.div>
+            <Dra3D reduce={!!reduce} />
             <div className="mt-3 w-fit max-w-full shrink-0 rounded-2xl bg-bege-paper/85 px-4 py-2 text-center shadow-sm backdrop-blur-sm sm:px-5 sm:py-2.5">
               <p className="font-display text-lg font-semibold leading-tight text-forest sm:text-2xl">Dra. Jade Rodrigues - Pediatra</p>
               <p className="mt-0.5 text-[9.5px] font-semibold uppercase tracking-[0.1em] text-sage-deep sm:mt-1 sm:text-xs sm:tracking-[0.14em] lg:whitespace-nowrap">Atendimento Particular em São José dos Campos</p>
@@ -72,5 +65,48 @@ export function HeroSection() {
         </div>
       </div>
     </section>
+  )
+}
+
+function Dra3D({ reduce }: { reduce: boolean }) {
+  const mx = useMotionValue(0)
+  const my = useMotionValue(0)
+  const done = useRef(false)
+  const sx = useSpring(mx, { stiffness: 70, damping: 14 })
+  const sy = useSpring(my, { stiffness: 70, damping: 14 })
+  const rotY = useTransform(sx, [-1, 1], [-22, 22])
+  const rotX = useTransform(sy, [-1, 1], [10, -10])
+  const shift = useTransform(sx, [-1, 1], [-14, 14])
+  const scale = useTransform(sy, [-1, 1], [0.99, 1.03])
+  // movimento só durante a entrada (~3,6s), depois a foto fica estática
+  useAnimationFrame((t) => {
+    if (reduce || done.current) return
+    const D = 3600
+    if (t >= D) { done.current = true; mx.set(0); my.set(0); return }
+    const k = 1 - t / D
+    const amp = k * k
+    mx.set(Math.sin(t / 380) * 0.95 * amp)
+    my.set(Math.cos(t / 520) * 0.5 * amp)
+  })
+  return (
+    <motion.div
+      initial={reduce ? false : { opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.1, ease, delay: 0.45 }}
+      className="flex min-h-0 w-full flex-1 justify-center [perspective:900px]"
+    >
+      <div className="relative h-full aspect-[4/5] max-w-full">
+        <div className="absolute inset-x-0 bottom-0 flex h-[104%] justify-center">
+          <motion.img
+            src={photoDraCut}
+            alt="Retrato da Dra. Jade Rodrigues, pediatra"
+            fetchPriority="high"
+            draggable={false}
+            style={reduce ? undefined : { rotateY: rotY, rotateX: rotX, x: shift, scale, transformOrigin: '50% 80%' }}
+            className="h-full w-auto max-w-none select-none object-contain [mask-image:linear-gradient(to_bottom,#000_88%,transparent_100%)]"
+          />
+        </div>
+      </div>
+    </motion.div>
   )
 }
